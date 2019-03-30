@@ -9,8 +9,8 @@ $white: #fff;
 $fade: rgba(0, 0, 0, 0.7);
 $primary: linear-gradient(45deg, $melon 30%, $orange 90%);
 
-@import url('https://fonts.googleapis.com/css?family=Carrois+Gothic+SC');
-@import url('https://fonts.googleapis.com/css?family=Merienda+One');
+@import url("https://fonts.googleapis.com/css?family=Carrois+Gothic+SC");
+@import url("https://fonts.googleapis.com/css?family=Merienda+One");
 
 body {
   color: #3f51b5;
@@ -28,7 +28,7 @@ a {
 .home {
   color: $fade;
   display: flex;
-  font: 400 100px/1.2 'Merienda One', Helvetica, sans-serif;
+  font: 400 100px/1.2 "Merienda One", Helvetica, sans-serif;
   justify-content: center;
   text-shadow: 3px 3px 3px $white;
 }
@@ -128,10 +128,10 @@ a {
 }
 
 .trip-card {
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
   border: 1px dashed #4d568f;
-  border-radius: 20px;
+  border-radius: 10px;
   background: #fff;
   margin: 5vh auto;
   width: 425px;
@@ -151,24 +151,31 @@ a {
 }
 
 .anim-typewriter {
-  animation:
-    typewriter 4s steps(44) 1s 1 normal both,
+  animation: typewriter 4s steps(44) 1s 1 normal both,
     blinkTextCursor 500ms steps(44) infinite normal;
 }
 
 @keyframes typewriter {
-  from { width: 0; }
-  to { width: 24em; }
+  from {
+    width: 0;
+  }
+  to {
+    width: 24em;
+  }
 }
 
 @keyframes blinkTextCursor {
-  from { border-right-color: rgba(255, 255, 255, 0.75); }
-  to { border-right-color: transparent; }
+  from {
+    border-right-color: rgba(255, 255, 255, 0.75);
+  }
+  to {
+    border-right-color: transparent;
+  }
 }
 
 .trip-name {
   display: flex;
-  font-family: 'Carrois Gothic SC', sans-serif;
+  font-family: "Carrois Gothic SC", sans-serif;
   font-size: 45px;
   justify-content: center;
 }

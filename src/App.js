@@ -1,179 +1,106 @@
-import React, { Component } from 'react'
-import './App.scss'
-import { Route, withRouter } from 'react-router-dom'
+import React, { Component } from 'react';
+import './App.scss';
+import { withRouter } from 'react-router-dom';
 
-import Layout from './Layout'
-import Nav from './header/Nav'
-import FrontPage from './FrontPage'
-import Home from './Home'
+import Layout from './Layout';
 
-import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
-import SignUp from './auth/components/SignUp'
-import SignIn from './auth/components/SignIn'
-import SignOut from './auth/components/SignOut'
-import ChangePassword from './auth/components/ChangePassword'
+import 'typeface-roboto';
+import axios from 'axios'
+import apiUrl from './apiConfig'
 
-import TripCreate from './TripCreate'
-import Trips from './Trips'
-import Trip from './Trip'
-import TripEdit from './TripEdit'
-import TodoCreate from './TodoCreate'
-import ExpenseCreate from './ExpenseCreate'
+export const MyContext = React.createContext();
 
-import Alert from 'react-bootstrap/Alert'
-import 'typeface-roboto'
-
-class App extends Component {
+class MyProvider extends Component {
   state = {
-    user: null,
-    alerts: []
+    name: '',
+    origin: '',
+    destination: '',
+    message: null,
+    user: {},
+    trip: {}
   }
 
-  setUser = user => this.setState({ user })
-
-  clearUser = () => this.setState({ user: null })
-
-  alert = (message, type) => {
-    this.setState({ alerts: [...this.state.alerts, { message, type }] })
+  handleChange = (e) => {
+    console.log('name: ', e.target.name)
+    console.log('value:', e.target.value)
+    const updatedField = { [e.target.name]: e.target.value };
+    this.setState(updatedField);
   }
+
+  saveUser = (user) => {
+    this.setState((prevState) => ({ ...prevState, user }))
+  }
+
+  saveTrip = (trip) => {
+    this.setState((prevState) => ({ ...prevState, trip }))
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+
+    const { name, origin, destination } = this.state;
+
+    if (name.length === 0 || origin.length === 0 || destination.length === 0) {
+      return this.setState(prevState => ({...prevState, message: 'Field cannot be empty'}))
+    }
+
+    axios({
+      url: apiUrl + '/trips',
+      method: 'post',
+      headers: {
+        Authorization: `Token token=${this.state.user.token}`,
+      },
+      data: {
+        trip: {
+          name,
+          origin,
+          destination,
+        },
+      },
+    })
+      .then(response => this.setState({ createdTripId: response.data.trip.id }))
+      .catch(() => this.setState({ shouldRedirect: true }));
+  };
 
   render () {
-    const { alerts, user } = this.state
-
+    console.log('provider state is: ', this.state)
     return (
-      <Layout>
-        <Nav
-          user={user}
-        />
-        {alerts.map((alert, index) => (
-          <Alert
-            key={index}
-            dismissible
-            variant={alert.type}
-          >
-            <Alert.Heading>
-              {alert.message}
-            </Alert.Heading>
-          </Alert>
-        ))}
-        <main>
-          <Route
-            exact
-            path='/'
-            component={FrontPage}
-          />
-          <AuthenticatedRoute
-            user={user}
-            exact
-            path='/trip/:id/todo-create'
-            render={({ match }) => (
-              <TodoCreate
-                user={user}
-                match={match}
-                alert={this.alert}
-              />
-            )} />
-          <AuthenticatedRoute
-            user={user}
-            exact
-            path='/trip/:id/expense-create'
-            render={({ match }) => (
-              <ExpenseCreate
-                user={user}
-                match={match}
-                alert={this.alert}
-              />
-            )} />
-          <AuthenticatedRoute
-            user={user}
-            exact path='/trips'
-            render={() => (
-              <Trips
-                user={user}
-                alert={this.alert}
-              />
-            )} />
-          <AuthenticatedRoute
-            exact
-            path='/trips/:id'
-            user={user}
-            render={({ match }) => (
-              <Trip user={user}
-                match={match}
-                alert={this.alert}
-              />
-            )} />
-          <AuthenticatedRoute
-            exact
-            path='/trip/:id/edit'
-            user={user}
-            render={({ match }) => (
-              <TripEdit
-                user={user}
-                match={match}
-                alert={this.alert}
-              />
-            )} />
-          <AuthenticatedRoute
-            exact
-            path='/trip-create'
-            user={user}
-            render={() => (
-              <TripCreate
-                user={user}
-                alert={this.alert}
-              />
-            )} />
-          <AuthenticatedRoute
-            exact
-            path='/home'
-            user={user}
-            render={() => (
-              <Home
-                user={user}
-                alert={this.alert}
-              />
-            )} />
-          <Route
-            path='/sign-up'
-            render={() => (
-              <SignUp
-                alert={this.alert}
-                setUser={this.setUser}
-              />
-            )} />
-          <Route
-            exact
-            path='/sign-in'
-            render={() => (
-              <SignIn
-                alert={this.alert}
-                setUser={this.setUser}
-              />
-            )} />
-          <AuthenticatedRoute
-            user={user}
-            path='/sign-out'
-            render={() => (
-              <SignOut
-                alert={this.alert}
-                clearUser={this.clearUser}
-                user={user}
-              />
-            )} />
-          <AuthenticatedRoute
-            user={user}
-            path='/change-password'
-            render={() => (
-              <ChangePassword
-                alert={this.alert}
-                user={user}
-              />
-            )} />
-        </main>
-      </Layout>
+      <MyContext.Provider value={{
+        state: this.state,
+        handleChange: this.handleChange,
+        handleSubmit: this.handleSumbit,
+        saveUser: this.saveUser,
+        saveTrip: this.saveTrip
+      }}>
+      {this.props.children}
+      </MyContext.Provider>
     )
   }
 }
 
-export default withRouter(App)
+class App extends Component {
+  state = {
+    user: null,
+    alerts: [],
+  };
+
+  // setUser = user => this.setState({ user });
+  //
+  // clearUser = () => this.setState({ user: null });
+  //
+  // alert = (message, type) => {
+  //   this.setState({ alerts: [...this.state.alerts, { message, type }] });
+  // };
+
+  render() {
+    const { alerts, user } = this.state;
+
+    return (
+      <MyProvider>
+      <Layout />
+      </MyProvider>
+    );
+  }
+}
+
+export default withRouter(App);

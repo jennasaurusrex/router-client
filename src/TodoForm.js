@@ -1,14 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Avatar from '@material-ui/core/Avatar'
-import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import FormControl from '@material-ui/core/FormControl'
-import Input from '@material-ui/core/Input'
-import InputLabel from '@material-ui/core/InputLabel'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import withStyles from '@material-ui/core/styles/withStyles'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
   main: {
@@ -19,42 +19,50 @@ const styles = theme => ({
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
       width: 400,
       marginLeft: 'auto',
-      marginRight: 'auto'
-    }
+      marginRight: 'auto',
+    },
   },
   paper: {
     marginTop: theme.spacing.unit * 8,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
+      .spacing.unit * 3}px`,
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing.unit
+    marginTop: theme.spacing.unit,
   },
   submit: {
-    marginTop: theme.spacing.unit * 3
-  }
-})
+    marginTop: theme.spacing.unit * 3,
+  },
+});
 
 const TodoForm = ({ handleChange, handleSubmit, trip, todo, classes }) => (
   <main className={classes.main}>
     <CssBaseline />
     <Paper className={classes.paper}>
-      <Avatar className={classes.avatar}>
-      </Avatar>
+      <Avatar className={classes.avatar} />
       <Typography component="h1" variant="h5">
         New Todo
       </Typography>
       <form className={classes.form} onSubmit={handleSubmit}>
         <FormControl margin="normal" required fullWidth>
           <InputLabel htmlFor="Todo Title">Todo Information</InputLabel>
-          <Input id="title" name="title" type="text" value={todo.title} onChange={handleChange} autoComplete="title" autoFocus />
+          <Input
+            id="title"
+            name="title"
+            type="text"
+            value={todo.title}
+            onChange={handleChange}
+            autoComplete="title"
+            autoFocus
+          />
         </FormControl>
         <Button
           type="submit"
@@ -68,10 +76,10 @@ const TodoForm = ({ handleChange, handleSubmit, trip, todo, classes }) => (
       </form>
     </Paper>
   </main>
-)
+);
 
 TodoForm.propTypes = {
-  classes: PropTypes.object.isRequired
-}
+  classes: PropTypes.object.isRequired,
+};
 
-export default withStyles(styles)(TodoForm)
+export default withStyles(styles)(TodoForm);
