@@ -2,11 +2,11 @@ import React, { Fragment, Component } from "react";
 import MapWithADirectionsRenderer from "./MapWithDirections";
 import { Route } from "react-router-dom";
 
-import Nav from "./header/Nav";
+import Nav from "./../../header/Nav";
 import FrontPage from "./../../home/components/FrontPage";
 import Home from "./../../home/components/Home";
 
-import AuthenticatedRoute from "./auth/components/AuthenticatedRoute";
+import AuthenticatedRoute from "./../../auth/components/AuthenticatedRoute";
 import SignUp from "./../../auth/components/SignUp";
 import SignIn from "./../../auth/components/SignIn";
 import SignOut from "./../../auth/components/SignOut";

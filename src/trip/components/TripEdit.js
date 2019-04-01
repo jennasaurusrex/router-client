@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
-import apiUrl from './apiConfig';
+import apiUrl from './../../apiConfig';
 import TripForm from './TripForm';
 import { Redirect } from 'react-router';
 
