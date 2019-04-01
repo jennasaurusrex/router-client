@@ -3,22 +3,22 @@ import MapWithADirectionsRenderer from "./MapWithDirections";
 import { Route } from "react-router-dom";
 
 import Nav from "./header/Nav";
-import FrontPage from "./FrontPage";
-import Home from "./Home";
+import FrontPage from "./../../home/components/FrontPage";
+import Home from "./../../home/components/Home";
 
 import AuthenticatedRoute from "./auth/components/AuthenticatedRoute";
-import SignUp from "./auth/components/SignUp";
-import SignIn from "./auth/components/SignIn";
-import SignOut from "./auth/components/SignOut";
-import ChangePassword from "./auth/components/ChangePassword";
+import SignUp from "./../../auth/components/SignUp";
+import SignIn from "./../../auth/components/SignIn";
+import SignOut from "./../../auth/components/SignOut";
+import ChangePassword from "./../../auth/components/ChangePassword";
 
-import TripCreate from "./TripCreate";
-import Trips from "./Trips";
-import Trip from "./Trip";
-import TripEdit from "./TripEdit";
-import TodoCreate from "./TodoCreate";
-import ExpenseCreate from "./ExpenseCreate";
-import { MyContext } from "./App";
+import TripCreate from "./../../trip/components/TripCreate";
+import Trips from "./../../trip/components/Trips";
+import Trip from "./../../trip/components/Trip";
+import TripEdit from "./../../trip/components/TripEdit";
+import TodoCreate from "./../../trip/components/TodoCreate";
+import ExpenseCreate from "./../../trip/components/ExpenseCreate";
+import { MyContext } from "./../../App";
 
 import Alert from "react-bootstrap/Alert";
 import "typeface-roboto";

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import apiUrl from './apiConfig';
+import apiUrl from './../../apiConfig';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import Delete from '@material-ui/icons/Delete';

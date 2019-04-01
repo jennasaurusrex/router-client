@@ -7,7 +7,9 @@ $orange: #ff8e53;
 $black: #000;
 $white: #fff;
 $fade: rgba(0, 0, 0, 0.7);
+$light-blue: #7986cb;
 $primary: linear-gradient(45deg, $melon 30%, $orange 90%);
+$indigo: #3f51b5;
 
 @import url("https://fonts.googleapis.com/css?family=Carrois+Gothic+SC");
 @import url("https://fonts.googleapis.com/css?family=Merienda+One");
@@ -23,6 +25,8 @@ a {
 .map {
   display: flex;
   justify-content: center;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .home {
@@ -40,11 +44,11 @@ a {
 }
 
 .nav-text {
+  background-color: $white;
   border-radius: 90px;
   display: flex;
-  margin: 0;
   justify-content: center;
-  background-color: $white;
+  margin: 0;
   padding: 10px;
 }
 
@@ -53,53 +57,50 @@ a {
 }
 
 .no-trips {
-  font-weight: 550;
   font-size: 30px;
+  font-weight: 550;
 }
 
 .sidepanel {
-  background-color: #7986cb;
-  height: 100%; /* Specify a height */
-  width: 0; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
-  top: 0;
+  background-color: $light-blue;
+  height: 100%;
   left: 0;
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
-}
-
-/* The sidepanel links */
-.sidepanel a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #3f51b5;
-  display: block;
-  transition: 0.3s;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidepanel a:hover {
-  color: $black;
-}
-
-/* Position and style the close button (top right corner) */
-.sidepanel .closebtn {
-  position: absolute;
+  overflow-x: hidden;
+  padding-top: 60px;
+  position: fixed;
   top: 0;
-  right: 25px;
+  transition: 0.5s;
+  width: 0;
+  z-index: 1;
+
+  a {
+    color: $indigo;
+    display: block;
+    font-size: 25px;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    transition: 0.3s;
+
+    &:hover {
+      color: $black;
+    }
+  }
+}
+
+.sidepanel .closebtn {
   font-size: 36px;
   margin-left: 50px;
+  position: absolute;
+  right: 25px;
+  top: 0;
 }
 
 .ruler {
-  overflow: visible; /* For IE */
-  padding: 0;
-  border: none;
+  border: 0;
   border-top: medium double #333;
   color: #333;
+  overflow: visible;
+  padding: 0;
   text-align: center;
 }
 
@@ -113,26 +114,21 @@ a {
 }
 
 .ruler::after {
-  content: "§";
+  background: $white;
+  content: '§';
   display: inline-block;
-  position: relative;
-  top: -0.7em;
   font-size: 1.5em;
   padding: 0 0.25em;
-  background: white;
-}
-
-.map {
-  max-width: 100%;
-  max-height: 100%;
+  position: relative;
+  top: -0.7em;
 }
 
 .trip-card {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  background: $white;
   border: 1px dashed #4d568f;
   border-radius: 10px;
-  background: #fff;
   margin: 5vh auto;
   width: 425px;
 }

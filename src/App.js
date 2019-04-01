@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import { withRouter } from 'react-router-dom';
 
-import Layout from './Layout';
+import Layout from './wrappers/components/Layout';
 
 import 'typeface-roboto';
 import axios from 'axios'
@@ -84,17 +84,7 @@ class App extends Component {
     alerts: [],
   };
 
-  // setUser = user => this.setState({ user });
-  //
-  // clearUser = () => this.setState({ user: null });
-  //
-  // alert = (message, type) => {
-  //   this.setState({ alerts: [...this.state.alerts, { message, type }] });
-  // };
-
   render() {
-    const { alerts, user } = this.state;
-
     return (
       <MyProvider>
       <Layout />

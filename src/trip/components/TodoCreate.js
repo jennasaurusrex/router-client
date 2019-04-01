@@ -1,25 +1,24 @@
 import React, { Component, Fragment } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
-import apiUrl from './apiConfig';
-import ExpenseForm from './ExpenseForm';
+import apiUrl from './../../apiConfig';
+import TodoForm from './TodoForm';
 import { Redirect } from 'react-router';
 import { withRouter } from 'react-router-dom';
 
-class ExpenseCreate extends Component {
+class TodoCreate extends Component {
   constructor() {
     super();
 
     this.state = {
-      expense: {
-        amount: '',
-        description: '',
+      todo: {
+        title: '',
         trip_id: '',
       },
       message: null,
       shouldRedirect: false,
       redirectMessage: null,
-      editedExpense: false,
+      editedTodo: false,
     };
   }
 
@@ -42,32 +41,31 @@ class ExpenseCreate extends Component {
 
   handleChange = event => {
     const updatedField = {
-      ...this.state.expense,
+      ...this.state.todo,
       [event.target.name]: event.target.value,
     };
-    this.setState({ expense: updatedField });
+    this.setState({ todo: updatedField });
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
-    const { amount, description } = this.state.expense;
+    const { title } = this.state.todo;
 
     axios({
-      url: `${apiUrl}/expenses`,
+      url: `${apiUrl}/todos`,
       method: 'post',
       headers: {
         Authorization: `Token token=${this.props.user.token}`,
       },
       data: {
-        expense: {
-          amount,
-          description,
+        todo: {
+          title,
           trip_id: this.props.location.state.trip.id,
         },
       },
     })
-      .then(response => this.setState({ editedExpense: true }))
+      .then(response => this.setState({ editedTodo: true }))
       .catch(console.error);
   };
 
@@ -78,9 +76,13 @@ class ExpenseCreate extends Component {
       shouldRedirect,
       redirectMessage,
       trip,
-      expense,
-      editedExpense,
+      todo,
+      editedTodo,
     } = this.state;
+
+    // if (!trip) {
+    //   return <p>loading...</p>
+    // }
 
     if (shouldRedirect) {
       return (
@@ -95,18 +97,18 @@ class ExpenseCreate extends Component {
       );
     }
 
-    if (editedExpense) {
+    if (editedTodo) {
       return <Redirect to={`/trips/${trip.id}`} />;
     }
 
     return (
       <Fragment>
         {message && <Alert variant="danger">{message}</Alert>}
-        <ExpenseForm
+        <TodoForm
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           trip={trip}
-          expense={expense}
+          todo={todo}
           user={this.props.user}
         />
       </Fragment>
@@ -114,4 +116,4 @@ class ExpenseCreate extends Component {
   }
 }
 
-export default withRouter(ExpenseCreate);
+export default withRouter(TodoCreate);
